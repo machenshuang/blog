@@ -24,31 +24,50 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="专注、勤学、期待、克制">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sean Ma&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="在2019年，也就是去年7月份的时候，俄罗斯下的FaceApp的变老功能被一堆美国政要和明星带火，接着就收到美国的隐私禁令。从技术上看，FaceApp的变老应该是基于机器学习的，今天，笔者给大家分享一种基于传统算法实现变老的效果。 先给大家看下特效，如图1.1所示：图1.1 变老特效 我们探究下这种效果的实现过程，从视觉上去看，其本质是在用户图上的人脸位置贴上皱纹图，具体思路如下所示：  将图片A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变老特效的探究">
+<meta property="og:url" content="http://example.com/2020/10/25/%E5%8F%98%E8%80%81%E7%89%B9%E6%95%88%E7%9A%84%E6%8E%A2%E7%A9%B6/index.html">
 <meta property="og:site_name" content="Sean Ma&#39;s Blog">
-<meta property="og:description" content="专注、勤学、期待、克制">
+<meta property="og:description" content="在2019年，也就是去年7月份的时候，俄罗斯下的FaceApp的变老功能被一堆美国政要和明星带火，接着就收到美国的隐私禁令。从技术上看，FaceApp的变老应该是基于机器学习的，今天，笔者给大家分享一种基于传统算法实现变老的效果。 先给大家看下特效，如图1.1所示：图1.1 变老特效 我们探究下这种效果的实现过程，从视觉上去看，其本质是在用户图上的人脸位置贴上皱纹图，具体思路如下所示：  将图片A">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE584fda967665771ffda7329d8b423d63/41450">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEf51451cc5cbb8964b7f40f4ee6599880/41328">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEa868b048874ee14ce1cf1884a122036a/41363">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE481e44eecae07cc30a742eb60c3d78c5/41377">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBc9cea4f8a81abd5dadcde876ee974d2b?method=download&shareKey=4eb37be7b263da665cc3835b2fe16d19">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEef24a106d8539da58b97fd6612d836cb/41384">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEef24a106d8539da58b97fd6612d836cb/41384">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBa4b0fa7df295d4783e0b714266febbbc?method=download&shareKey=3677d155dcf446eff599d75c9e878420">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB3a8365b4f0fcc933c21586eb17910591?method=download&shareKey=3aa7691f198fb8d124b81599c8d2e5a9">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE2b821d7124b3d74238d09db4ec4bc952/41394">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBe1817c89ef5f2d3b2cd8db76f64febce?method=download&shareKey=b089f23326a47297a9edcda876cdda59">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB5887277f5e82dd3ea9bfc5dbe66e4e3b?method=download&shareKey=1e8f5d25c79ddd759a86338d31877038">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBb065a2f544125fc3f23fa7f719a6a8b0?method=download&shareKey=22fdad956a68bbd233aea1c4f357429c">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE8806f15b1e86461ed820e8c63a39c1a7/41440">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE5b4ceb04420c0230566e7b438a51da21/41444">
+<meta property="article:published_time" content="2020-10-25T04:03:55.000Z">
+<meta property="article:modified_time" content="2020-10-25T08:54:57.987Z">
 <meta property="article:author" content="马陈爽">
+<meta property="article:tag" content="图像处理">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE584fda967665771ffda7329d8b423d63/41450">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2020/10/25/%E5%8F%98%E8%80%81%E7%89%B9%E6%95%88%E7%9A%84%E6%8E%A2%E7%A9%B6/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Sean Ma's Blog</title>
+  <title>变老特效的探究 | Sean Ma's Blog</title>
   
 
 
@@ -164,7 +183,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -176,6 +195,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E9%94%AE%E7%82%B9%E6%A3%80%E6%B5%8B"><span class="nav-number">1.</span> <span class="nav-text">一、关键点检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%B3%E9%94%AE%E7%82%B9%E5%AF%B9%E9%BD%90"><span class="nav-number">2.</span> <span class="nav-text">二、关键点对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%8F%A0%E5%8A%A0%E6%B7%B7%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">三、叠加混合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -223,11 +243,12 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
       
 
       
-    
+
+  
 
 
 <div class="post-block">
@@ -247,10 +268,9 @@
       <meta itemprop="name" content="Sean Ma's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/25/%E5%8F%98%E8%80%81%E7%89%B9%E6%95%88%E7%9A%84%E6%8E%A2%E7%A9%B6/" class="post-title-link" itemprop="url">变老特效的探究</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          变老特效的探究
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -274,7 +294,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>在2019年，也就是去年7月份的时候，俄罗斯下的FaceApp的变老功能被一堆美国政要和明星带火，接着就收到美国的隐私禁令。从技术上看，FaceApp的变老应该是基于机器学习的，今天，笔者给大家分享一种基于传统算法实现变老的效果。</p>
+        <p>在2019年，也就是去年7月份的时候，俄罗斯下的FaceApp的变老功能被一堆美国政要和明星带火，接着就收到美国的隐私禁令。从技术上看，FaceApp的变老应该是基于机器学习的，今天，笔者给大家分享一种基于传统算法实现变老的效果。</p>
 <p>先给大家看下特效，如图1.1所示：<center><img src="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE584fda967665771ffda7329d8b423d63/41450" width = "188" height = "331"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图1.1 变老特效</div></center></p>
 <p>我们探究下这种效果的实现过程，从视觉上去看，其本质是在用户图上的人脸位置贴上皱纹图，具体思路如下所示：</p>
 <ol>
@@ -311,7 +331,6 @@
 <li><a target="_blank" rel="noopener" href="https://firebase.google.com/docs/ml-kit/detect-faces?hl=zh-cn">Firebase人脸检测指导文档</a></li>
 </ol>
 
-      
     </div>
 
     
@@ -319,158 +338,27 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"># 图像处理</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/24/test-my-site/" rel="prev" title="test_my_site">
+                  <i class="fa fa-chevron-left"></i> test_my_site
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
 
 
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/24/test-my-site/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar1.jpeg">
-      <meta itemprop="name" content="马陈爽">
-      <meta itemprop="description" content="专注、勤学、期待、克制">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sean Ma's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/24/test-my-site/" class="post-title-link" itemprop="url">test_my_site</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-10-24 17:30:44" itemprop="dateCreated datePublished" datetime="2020-10-24T17:30:44+08:00">2020-10-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/24/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar1.jpeg">
-      <meta itemprop="name" content="马陈爽">
-      <meta itemprop="description" content="专注、勤学、期待、克制">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sean Ma's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/24/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-10-24 17:26:35" itemprop="dateCreated datePublished" datetime="2020-10-24T17:26:35+08:00">2020-10-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-  
 
 
 
