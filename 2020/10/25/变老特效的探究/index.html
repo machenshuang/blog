@@ -31,9 +31,9 @@
 <meta property="og:site_name" content="Sean Ma&#39;s Blog">
 <meta property="og:description" content="在2019年，也就是去年7月份的时候，俄罗斯下的FaceApp的变老功能被一堆美国政要和明星带火，接着就收到美国的隐私禁令。从技术上看，FaceApp的变老应该是基于机器学习的，今天，笔者给大家分享一种基于传统算法实现变老的效果。 先给大家看下特效，如图1.1所示：图1.1 变老特效 我们探究下这种效果的实现过程，从视觉上去看，其本质是在用户图上的人脸位置贴上皱纹图，具体思路如下所示：  将图片A">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE584fda967665771ffda7329d8b423d63/41450">
-<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEf51451cc5cbb8964b7f40f4ee6599880/41328">
-<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEa868b048874ee14ce1cf1884a122036a/41363">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB3a3f4e4d556359085d84e5a41f0ae0e4?method=download&shareKey=aef0bfd0f43e753ca579463e0031ea6d">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB9cadb5e3acb9bc6cac035ae91a51db1f?method=download&shareKey=7297ef6234f20df499f1985a45f4170c">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB1d161265bf37780fe6f30857bf8fa603?method=download&shareKey=44313fe190ad0d16ead244d336383e29">
 <meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE481e44eecae07cc30a742eb60c3d78c5/41377">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBc9cea4f8a81abd5dadcde876ee974d2b?method=download&shareKey=4eb37be7b263da665cc3835b2fe16d19">
 <meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEef24a106d8539da58b97fd6612d836cb/41384">
@@ -44,14 +44,14 @@
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBe1817c89ef5f2d3b2cd8db76f64febce?method=download&shareKey=b089f23326a47297a9edcda876cdda59">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB5887277f5e82dd3ea9bfc5dbe66e4e3b?method=download&shareKey=1e8f5d25c79ddd759a86338d31877038">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBb065a2f544125fc3f23fa7f719a6a8b0?method=download&shareKey=22fdad956a68bbd233aea1c4f357429c">
-<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE8806f15b1e86461ed820e8c63a39c1a7/41440">
-<meta property="og:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE5b4ceb04420c0230566e7b438a51da21/41444">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB2b71606ef7344c63e99dda94dd17f386?method=download&shareKey=f5c68a12b3a7ef57e248f88361aedde2">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBd66a3086addabaeb3d50444617cd77ab?method=download&shareKey=e83ddaacc54b5e1c3eaa8c77c61a780b">
 <meta property="article:published_time" content="2020-10-25T04:03:55.000Z">
-<meta property="article:modified_time" content="2020-10-25T09:49:51.782Z">
+<meta property="article:modified_time" content="2020-11-22T08:17:49.947Z">
 <meta property="article:author" content="马陈爽">
 <meta property="article:tag" content="变老">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE584fda967665771ffda7329d8b423d63/41450">
+<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/WEB3a3f4e4d556359085d84e5a41f0ae0e4?method=download&shareKey=aef0bfd0f43e753ca579463e0031ea6d">
 
 
 <link rel="canonical" href="http://example.com/2020/10/25/%E5%8F%98%E8%80%81%E7%89%B9%E6%95%88%E7%9A%84%E6%8E%A2%E7%A9%B6/">
@@ -287,10 +287,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-10-25 12:03:55 / 修改时间：17:49:51" itemprop="dateCreated datePublished" datetime="2020-10-25T12:03:55+08:00">2020-10-25</time>
+      <time title="创建时间：2020-10-25 12:03:55" itemprop="dateCreated datePublished" datetime="2020-10-25T12:03:55+08:00">2020-10-25</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-11-22 16:17:49" itemprop="dateModified" datetime="2020-11-22T16:17:49+08:00">2020-11-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -312,7 +318,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>在2019年，也就是去年7月份的时候，俄罗斯下的FaceApp的变老功能被一堆美国政要和明星带火，接着就收到美国的隐私禁令。从技术上看，FaceApp的变老应该是基于机器学习的，今天，笔者给大家分享一种基于传统算法实现变老的效果。</p>
-<p>先给大家看下特效，如图1.1所示：<center><img src="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE584fda967665771ffda7329d8b423d63/41450" width = "188" height = "331"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图1.1 变老特效</div></center></p>
+<p>先给大家看下特效，如图1.1所示：<center><img src="https://note.youdao.com/yws/api/personal/file/WEB3a3f4e4d556359085d84e5a41f0ae0e4?method=download&shareKey=aef0bfd0f43e753ca579463e0031ea6d" width = "188" height = "331"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图1.1 变老特效</div></center></p>
 <p>我们探究下这种效果的实现过程，从视觉上去看，其本质是在用户图上的人脸位置贴上皱纹图，具体思路如下所示：</p>
 <ol>
 <li>将图片A进行人脸检测，得到图片A的人脸关键点集m；</li>
@@ -322,7 +328,7 @@
 <li>将图片A和效果图C进行透明度混合，实现调整透明度的效果。</li>
 </ol>
 <p>前面我们了解了实现这种效果的关键步骤，接下来就深入了解每个环节。</p>
-<h3 id="一、关键点检测"><a href="#一、关键点检测" class="headerlink" title="一、关键点检测"></a>一、关键点检测</h3><p>人脸检测的技术已经不是什么新鲜事了，各大厂商出了许多人脸检测SDK，有81个关键点的、有106个关键点的，目前在收费上比较出名的人脸关键点SDK有商汤科技、旷视、字节等；免费的人脸关键点SDK有OpenCV、Dlib、以及Google旗下Firebase的MLVision，笔者正是使用它来做此次的人脸关键点检测，MLVision可以检测出133个关键点，包括人脸的额头点，如图2.1所示：<center><img src="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEf51451cc5cbb8964b7f40f4ee6599880/41328" width = "512" height = "384"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图2.1 Google关键点示例图</div></center></p>
+<h3 id="一、关键点检测"><a href="#一、关键点检测" class="headerlink" title="一、关键点检测"></a>一、关键点检测</h3><p>人脸检测的技术已经不是什么新鲜事了，各大厂商出了许多人脸检测SDK，有81个关键点的、有106个关键点的，目前在收费上比较出名的人脸关键点SDK有商汤科技、旷视、字节等；免费的人脸关键点SDK有OpenCV、Dlib、以及Google旗下Firebase的MLVision，笔者正是使用它来做此次的人脸关键点检测，MLVision可以检测出133个关键点，包括人脸的额头点，如图2.1所示：<center><img src="https://note.youdao.com/yws/api/personal/file/WEB9cadb5e3acb9bc6cac035ae91a51db1f?method=download&shareKey=7297ef6234f20df499f1985a45f4170c" width = "512" height = "384"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图2.1 Google关键点示例图</div></center></p>
 <p>Firebase的MLVision具体使用可以参考<a target="_blank" rel="noopener" href="https://firebase.google.com/docs/ml-kit/detect-faces?hl=zh-cn">Firebase的文档</a>，需要用梯子才能访问，这里笔者简单总结下对Firebase的MLVision的使用感受：</p>
 <ol>
 <li>优点：<ul>
@@ -333,7 +339,7 @@
 <li>不足：<ul>
 <li>只能单人脸检测，且单帧人脸关键点检测相较于收费厂商过慢，对一张1080的图片，用MLVision需要15~20ms，Face++是6ms、字节是3ms，所有理论上MLVision无法用在实时情景下；</li>
 <li>缺乏更多人脸相关数据，如缺乏部分欧拉角数据等。</li>
-<li>除了需要将用户图A通过人脸检测获取到关键点集m之外，还需要对皱纹图B打点，其实就是人工计算图B关键点的坐标，坐标数量和特征同点集m保持一致，为点集n，皱纹图如图2.2所示:<center><img src="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCEa868b048874ee14ce1cf1884a122036a/41363" width = "200" height = "256"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图2.2 皱纹面具图</div></center></li>
+<li>除了需要将用户图A通过人脸检测获取到关键点集m之外，还需要对皱纹图B打点，其实就是人工计算图B关键点的坐标，坐标数量和特征同点集m保持一致，为点集n，皱纹图如图2.2所示:<center><img src="https://note.youdao.com/yws/api/personal/file/WEB1d161265bf37780fe6f30857bf8fa603?method=download&shareKey=44313fe190ad0d16ead244d336383e29" width = "200" height = "256"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图2.2 皱纹面具图</div></center></li>
 </ul>
 </li>
 </ol>
@@ -341,8 +347,8 @@
 <p>效果图如图3.1所示：<center><img src="https://note.youdao.com/yws/api/personal/file/WEB5887277f5e82dd3ea9bfc5dbe66e4e3b?method=download&shareKey=1e8f5d25c79ddd759a86338d31877038" width = "256" height = "245"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图3.1 MSL相似变换效果图</div></center><br>在这一步，根据点集m和点集n，将皱纹图B对齐到用户图A上，效果如图3.2所示：</p>
 <center><img src="https://note.youdao.com/yws/api/personal/file/WEBb065a2f544125fc3f23fa7f719a6a8b0?method=download&shareKey=22fdad956a68bbd233aea1c4f357429c" width = "307" height = "395"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图3.2 面具对齐图</div></center>
 
-<h3 id="三、叠加混合"><a href="#三、叠加混合" class="headerlink" title="三、叠加混合"></a>三、叠加混合</h3><p>面具图B一旦变形完后，需要将其同图A进行叠加混合，叠加算法有很多种，有柔光、叠加、强光、变亮、变暗等，具体可以查看Photo Shop，如果没有Photo Shop可以查看一些手机图片编辑工具，如PicsArt美易等工具。这里笔者建议可以使用柔光混合或者叠加混合，这里使用的叠加混合，效果基本上同柔光差不多，但在黑人变老体验上会更好，各种混合公式如图4.1所示：<center><img src="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE8806f15b1e86461ed820e8c63a39c1a7/41440"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图4.1 叠加公式</div></center><br>这里笔者使用的是GPUImage3的叠加混合着色器，是基于Metal的GPU渲染，Metal，苹果推出的今后GPU渲染和计算的御用API，兼顾图形与计算功能、面向底层、低开销的硬件加速、类似将OpenGL和OpenCL的功能集合在同一个API里，iOS8以上，但其实保险得iOS11以上才能用，跟硬件加速有关，除此之外苹果还有一个MetalKit，和Metal共存在iOS里，只不过MetalKit比Metal多了些东西，比如提供更容易的纹理加载API、Metai的高效输入输出、MTKView等，基本上iOS上目前都是使用MetalKit。</p>
-<p>使用Metal渲染后，效果图如图4.2所示：<center><img src="http://note.youdao.com/yws/public/resource/6450b8fc64e9416c05c9c901b78115b9/xmlnote/WEBRESOURCE5b4ceb04420c0230566e7b438a51da21/41444"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图4.2 变老过程图</div></center><br>到这里基本上就完成了变老特效的实现，Demo可以在Github上<a target="_blank" rel="noopener" href="https://github.com/machenshuang/Old-Face-Sample">直接下载</a>。</p>
+<h3 id="三、叠加混合"><a href="#三、叠加混合" class="headerlink" title="三、叠加混合"></a>三、叠加混合</h3><p>面具图B一旦变形完后，需要将其同图A进行叠加混合，叠加算法有很多种，有柔光、叠加、强光、变亮、变暗等，具体可以查看Photo Shop，如果没有Photo Shop可以查看一些手机图片编辑工具，如PicsArt美易等工具。这里笔者建议可以使用柔光混合或者叠加混合，这里使用的叠加混合，效果基本上同柔光差不多，但在黑人变老体验上会更好，各种混合公式如图4.1所示：<center><img src="https://note.youdao.com/yws/api/personal/file/WEB2b71606ef7344c63e99dda94dd17f386?method=download&shareKey=f5c68a12b3a7ef57e248f88361aedde2"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图4.1 叠加公式</div></center><br>这里笔者使用的是GPUImage3的叠加混合着色器，是基于Metal的GPU渲染，Metal，苹果推出的今后GPU渲染和计算的御用API，兼顾图形与计算功能、面向底层、低开销的硬件加速、类似将OpenGL和OpenCL的功能集合在同一个API里，iOS8以上，但其实保险得iOS11以上才能用，跟硬件加速有关，除此之外苹果还有一个MetalKit，和Metal共存在iOS里，只不过MetalKit比Metal多了些东西，比如提供更容易的纹理加载API、Metai的高效输入输出、MTKView等，基本上iOS上目前都是使用MetalKit。</p>
+<p>使用Metal渲染后，效果图如图4.2所示：<center><img src="https://note.youdao.com/yws/api/personal/file/WEBd66a3086addabaeb3d50444617cd77ab?method=download&shareKey=e83ddaacc54b5e1c3eaa8c77c61a780b"/><div style="font-size: 7px; color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图4.2 变老过程图</div></center><br>到这里基本上就完成了变老特效的实现，Demo可以在Github上<a target="_blank" rel="noopener" href="https://github.com/machenshuang/Old-Face-Sample">直接下载</a>。</p>
 <h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ol>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shushen/p/5887513.html">卡通图像变形算法（Moving Least Squares）附源码</a></li>
 <li><a target="_blank" rel="noopener" href="https://firebase.google.com/docs/ml-kit/detect-faces?hl=zh-cn">Firebase人脸检测指导文档</a></li>
